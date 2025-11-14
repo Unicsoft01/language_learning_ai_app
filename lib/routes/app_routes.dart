@@ -4,6 +4,7 @@ import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/onboarding/login_screen.dart';
 import '../screens/onboarding/signup_screen.dart';
 import '../screens/onboarding/language_selection_screen.dart';
+import '../screens/onboarding/goal_setup_screen.dart';
 // import '../screens/home/home_screen.dart';
 // import '../screens/lessons/lesson_list_screen.dart';
 // import '../screens/lessons/lesson_detail_screen.dart';
@@ -25,6 +26,8 @@ class AppRoutes {
   static const String analytics = '/analytics';
   static const String profile = '/profile';
   static const String settings = '/settings';
+  static const String setupGoals = '/setup/goals';
+  static const String setupPlacement = '/setup/placement';
 
   static Map<String, WidgetBuilder> get routes => {
     splash: (context) => const SplashScreen(),
@@ -32,6 +35,7 @@ class AppRoutes {
     login: (context) => const LoginScreen(),
     signup: (context) => const SignUpScreen(),
     languageSelect: (context) => const LanguageSelectionScreen(),
+    setupGoals: (context) => const GoalSetupScreen(),
     // home: (context) => const HomeScreen(),
     // lessons: (context) => const LessonListScreen(),
     // lessonDetail: (context) => const LessonDetailScreen(),
