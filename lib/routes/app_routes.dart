@@ -11,8 +11,10 @@ import '../screens/onboarding/placement_result_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/home/notifications_screen.dart';
 
+import '../screens/lessons/lessons_screen.dart';
+import '../screens/lessons/lesson_detail_screen.dart';
+
 // import '../screens/lessons/lesson_list_screen.dart';
-// import '../screens/lessons/lesson_detail_screen.dart';
 // import '../screens/lessons/exercise_screen.dart';
 // import '../screens/profile/profile_screen.dart';
 // import '../screens/analytics/analytics_screen.dart';
@@ -50,8 +52,9 @@ class AppRoutes {
 
     notifications: (context) => const NotificationsScreen(),
 
-    // lessons: (context) => const LessonListScreen(),
-    // lessonDetail: (context) => const LessonDetailScreen(),
+    lessons: (context) => const LessonsScreen(),
+    lessonDetail: (context) => const LessonDetailScreen(),
+
     // exercise: (context) => const ExerciseScreen(),
     // analytics: (context) => const AnalyticsScreen(),
     // profile: (context) => const ProfileScreen(),
