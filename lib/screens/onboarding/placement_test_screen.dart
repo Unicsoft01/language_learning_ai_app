@@ -56,10 +56,10 @@ class _PlacementTestScreenState extends State<PlacementTestScreen> {
       });
     } else {
       // Last question → navigate to placement result
-      // Navigator.pushNamed(
-      //   context,
-      //   AppRoutes.setupPlacementResult, // you'll add this in AppRoutes
-      // );
+      Navigator.pushNamed(
+        context,
+        AppRoutes.setupPlacementResult, // you'll add this in AppRoutes
+      );
     }
   }
 
