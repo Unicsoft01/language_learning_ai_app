@@ -5,6 +5,7 @@ import '../screens/onboarding/login_screen.dart';
 import '../screens/onboarding/signup_screen.dart';
 import '../screens/onboarding/language_selection_screen.dart';
 import '../screens/onboarding/goal_setup_screen.dart';
+import '../screens/onboarding/placement_test_screen.dart';
 // import '../screens/home/home_screen.dart';
 // import '../screens/lessons/lesson_list_screen.dart';
 // import '../screens/lessons/lesson_detail_screen.dart';
@@ -36,6 +37,7 @@ class AppRoutes {
     signup: (context) => const SignUpScreen(),
     languageSelect: (context) => const LanguageSelectionScreen(),
     setupGoals: (context) => const GoalSetupScreen(),
+    setupPlacement: (context) => const PlacementTestScreen(),
     // home: (context) => const HomeScreen(),
     // lessons: (context) => const LessonListScreen(),
     // lessonDetail: (context) => const LessonDetailScreen(),
