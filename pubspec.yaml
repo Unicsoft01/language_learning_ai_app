@@ -35,12 +35,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  lucide_flutter: 0.553.0
+
   http: ^1.2.0
   shared_preferences: ^2.2.2
   google_fonts: ^6.2.1
   fl_chart: ^1.1.1
   animations: ^2.0.8
   smooth_page_indicator: ^1.2.1
+
+  flag: ^7.0.0
 
 dev_dependencies:
   flutter_test:
