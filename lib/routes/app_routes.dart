@@ -8,7 +8,9 @@ import '../screens/onboarding/goal_setup_screen.dart';
 import '../screens/onboarding/placement_test_screen.dart';
 import '../screens/onboarding/placement_result_screen.dart';
 
-// import '../screens/home/home_screen.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/home/notifications_screen.dart';
+
 // import '../screens/lessons/lesson_list_screen.dart';
 // import '../screens/lessons/lesson_detail_screen.dart';
 // import '../screens/lessons/exercise_screen.dart';
@@ -33,6 +35,8 @@ class AppRoutes {
   static const String setupPlacement = '/setup/placement';
   static const String setupPlacementResult = '/setup/placement/result';
 
+  static const String notifications = '/notifications';
+
   static Map<String, WidgetBuilder> get routes => {
     splash: (context) => const SplashScreen(),
     onboarding: (context) => const OnboardingScreen(),
@@ -42,7 +46,10 @@ class AppRoutes {
     setupGoals: (context) => const GoalSetupScreen(),
     setupPlacement: (context) => const PlacementTestScreen(),
     setupPlacementResult: (context) => const PlacementResultScreen(),
-    // home: (context) => const HomeScreen(),
+    home: (context) => const HomeScreen(),
+
+    notifications: (context) => const NotificationsScreen(),
+
     // lessons: (context) => const LessonListScreen(),
     // lessonDetail: (context) => const LessonDetailScreen(),
     // exercise: (context) => const ExerciseScreen(),

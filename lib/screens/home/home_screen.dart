@@ -1,376 +1,327 @@
-// import 'package:flutter/material.dart';
-// import 'package:lucide_flutter/lucide_flutter.dart';
-// import '../../routes/app_routes.dart';
+import 'package:flutter/material.dart';
+import '../../routes/app_routes.dart';
 
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-//   // Dummy data for recommended lessons (replace with real data later)
-//   final List<Map<String, dynamic>> recommendedLessons = const [
-//     {
-//       "id": 1,
-//       "title": "Basic Vocabulary",
-//       "level": "Beginner",
-//       "duration": "8m",
-//       "progress": 0.2,
-//     },
-//     {
-//       "id": 2,
-//       "title": "Simple Conversations",
-//       "level": "Beginner",
-//       "duration": "12m",
-//       "progress": 0.0,
-//     },
-//     {
-//       "id": 3,
-//       "title": "Pronunciation Practice",
-//       "level": "Intermediate",
-//       "duration": "10m",
-//       "progress": 0.5,
-//     },
-//     {
-//       "id": 4,
-//       "title": "Grammar Essentials",
-//       "level": "Intermediate",
-//       "duration": "15m",
-//       "progress": 0.0,
-//     },
-//   ];
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final String userName = "Alex"; // placeholder — replace with real user name
-//     final int streakDays = 5; // placeholder
-//     final double weeklyProgress = 0.46; // 46% progress — placeholder
+class _HomeScreenState extends State<HomeScreen> {
+  // For now, we assume Home is tab 0.
+  int _currentIndex = 0;
 
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF7FBFF),
-//       appBar: AppBar(
-//         elevation: 0,
-//         backgroundColor: Colors.transparent,
-//         centerTitle: false,
-//         title: const Text(
-//           'Learning',
-//           style: TextStyle(
-//             color: Color(0xFF0D47A1),
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-//         actions: [
-//           IconButton(
-//             onPressed: () {
-//               Navigator.pushNamed(context, AppRoutes.profile);
-//             },
-//             icon: const Icon(Lucide.user, color: Color(0xFF0D47A1)),
-//           ),
-//         ],
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.fromLTRB(18, 12, 18, 18),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             // Greeting & quick stats
-//             Row(
-//               children: [
-//                 // Greeting
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         'Welcome back,',
-//                         style: TextStyle(color: Colors.grey[700], fontSize: 14),
-//                       ),
-//                       const SizedBox(height: 6),
-//                       Text(
-//                         userName,
-//                         style: const TextStyle(
-//                           fontSize: 22,
-//                           fontWeight: FontWeight.w700,
-//                           color: Color(0xFF0D47A1),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
+  // Dummy progress values
+  final double _todayGoalProgress = 0.6; // 60% of daily goal
+  final int _streakDays = 3;
+  final String _lastLessonTitle = 'Daily routines – A2';
 
-//                 // Streak card
-//                 Container(
-//                   padding: const EdgeInsets.symmetric(
-//                     horizontal: 12,
-//                     vertical: 10,
-//                   ),
-//                   decoration: BoxDecoration(
-//                     gradient: const LinearGradient(
-//                       colors: [Color(0xFFB3E5FC), Color(0xFF81D4FA)],
-//                       begin: Alignment.topLeft,
-//                       end: Alignment.bottomRight,
-//                     ),
-//                     borderRadius: BorderRadius.circular(14),
-//                     boxShadow: [
-//                       BoxShadow(
-//                         color: Colors.black12.withOpacity(0.04),
-//                         blurRadius: 8,
-//                         offset: const Offset(0, 4),
-//                       ),
-//                     ],
-//                   ),
-//                   child: Column(
-//                     children: [
-//                       const Icon(Lucide.flash, color: Color(0xFF01579B)),
-//                       const SizedBox(height: 6),
-//                       Text(
-//                         '$streakDays',
-//                         style: const TextStyle(
-//                           fontSize: 16,
-//                           fontWeight: FontWeight.bold,
-//                           color: Color(0xFF01579B),
-//                         ),
-//                       ),
-//                       const SizedBox(height: 2),
-//                       Text(
-//                         'streak',
-//                         style: TextStyle(fontSize: 12, color: Colors.grey[700]),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
+  void _onNavTap(int index) {
+    if (index == _currentIndex) return;
 
-//             const SizedBox(height: 22),
+    setState(() {
+      _currentIndex = index;
+    });
 
-//             // Weekly progress card
-//             Container(
-//               width: double.infinity,
-//               padding: const EdgeInsets.all(16),
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 borderRadius: BorderRadius.circular(14),
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Colors.black12.withOpacity(0.04),
-//                     blurRadius: 10,
-//                     offset: const Offset(0, 6),
-//                   ),
-//                 ],
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Row(
-//                     children: [
-//                       const Icon(Lucide.bar_chart_2, color: Color(0xFF0D47A1)),
-//                       const SizedBox(width: 8),
-//                       const Text(
-//                         'This week',
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.w600,
-//                           color: Color(0xFF0D47A1),
-//                         ),
-//                       ),
-//                       const Spacer(),
-//                       Text(
-//                         '${(weeklyProgress * 100).toStringAsFixed(0)}%',
-//                         style: const TextStyle(
-//                           fontWeight: FontWeight.bold,
-//                           color: Color(0xFF0D47A1),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 12),
-//                   // Custom progress bar
-//                   ClipRRect(
-//                     borderRadius: BorderRadius.circular(8),
-//                     child: LinearProgressIndicator(
-//                       value: weeklyProgress,
-//                       minHeight: 12,
-//                       backgroundColor: const Color(0xFFEEF7FF),
-//                       valueColor: AlwaysStoppedAnimation<Color>(
-//                         const Color(0xFF1976D2),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
+    switch (index) {
+      case 0:
+        // Already on home; do nothing or pop to root
+        break;
+      case 1:
+        Navigator.pushNamed(context, AppRoutes.lessons);
+        break;
+      case 2:
+        // Use analytics as "Progress" for now
+        Navigator.pushNamed(context, AppRoutes.analytics);
+        break;
+      case 3:
+        Navigator.pushNamed(context, AppRoutes.profile);
+        break;
+    }
+  }
 
-//             const SizedBox(height: 20),
+  void _onStartSession() {
+    // For now, just go to lessons list
+    Navigator.pushNamed(context, AppRoutes.lessons);
+  }
 
-//             // Header for recommendations
-//             const Text(
-//               'Recommended for you',
-//               style: TextStyle(
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.w700,
-//                 color: Color(0xFF0D47A1),
-//               ),
-//             ),
-//             const SizedBox(height: 12),
+  void _onResumeLesson() {
+    // TODO: deep-link into last lesson player
+    Navigator.pushNamed(context, AppRoutes.lessons);
+  }
 
-//             // Horizontal recommended lessons
-//             SizedBox(
-//               height: 170,
-//               child: ListView.separated(
-//                 scrollDirection: Axis.horizontal,
-//                 itemCount: recommendedLessons.length,
-//                 separatorBuilder: (_, __) => const SizedBox(width: 12),
-//                 itemBuilder: (context, index) {
-//                   final lesson = recommendedLessons[index];
-//                   return GestureDetector(
-//                     onTap: () {
-//                       // navigate to lesson detail (prototype)
-//                       Navigator.pushNamed(
-//                         context,
-//                         AppRoutes.lessonDetail,
-//                         arguments: lesson,
-//                       );
-//                     },
-//                     child: Container(
-//                       width: 260,
-//                       padding: const EdgeInsets.all(14),
-//                       decoration: BoxDecoration(
-//                         gradient: const LinearGradient(
-//                           colors: [Color(0xFFFFFFFF), Color(0xFFEAF6FF)],
-//                           begin: Alignment.topLeft,
-//                           end: Alignment.bottomRight,
-//                         ),
-//                         borderRadius: BorderRadius.circular(14),
-//                         border: Border.all(color: Colors.white),
-//                         boxShadow: [
-//                           BoxShadow(
-//                             color: Colors.black12.withOpacity(0.03),
-//                             blurRadius: 8,
-//                             offset: const Offset(0, 6),
-//                           ),
-//                         ],
-//                       ),
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           // top row: icon + level + duration
-//                           Row(
-//                             children: [
-//                               Container(
-//                                 padding: const EdgeInsets.all(8),
-//                                 decoration: BoxDecoration(
-//                                   color: const Color(0xFFDBF3FF),
-//                                   borderRadius: BorderRadius.circular(10),
-//                                 ),
-//                                 child: const Icon(
-//                                   Lucide.book_open,
-//                                   color: Color(0xFF0370A6),
-//                                   size: 20,
-//                                 ),
-//                               ),
-//                               const SizedBox(width: 10),
-//                               Expanded(
-//                                 child: Text(
-//                                   lesson['title'],
-//                                   style: const TextStyle(
-//                                     fontSize: 16,
-//                                     fontWeight: FontWeight.w700,
-//                                     color: Color(0xFF053A63),
-//                                   ),
-//                                   maxLines: 2,
-//                                   overflow: TextOverflow.ellipsis,
-//                                 ),
-//                               ),
-//                               const SizedBox(width: 8),
-//                               Text(
-//                                 lesson['duration'],
-//                                 style: TextStyle(
-//                                   fontSize: 12,
-//                                   color: Colors.grey[600],
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                           const Spacer(),
-//                           // progress and CTA
-//                           Row(
-//                             children: [
-//                               Expanded(
-//                                 child: ClipRRect(
-//                                   borderRadius: BorderRadius.circular(8),
-//                                   child: LinearProgressIndicator(
-//                                     value: lesson['progress'],
-//                                     minHeight: 8,
-//                                     backgroundColor: const Color(0xFFF1F9FF),
-//                                     valueColor: AlwaysStoppedAnimation<Color>(
-//                                       const Color(0xFF1976D2),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ),
-//                               const SizedBox(width: 10),
-//                               Text(
-//                                 '${(lesson['progress'] * 100).toStringAsFixed(0)}%',
-//                                 style: const TextStyle(
-//                                   fontSize: 12,
-//                                   color: Color(0xFF0D47A1),
-//                                   fontWeight: FontWeight.w600,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ),
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
-//             const SizedBox(height: 18),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('LinguaAI'),
+          centerTitle: false,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.notifications_none_outlined),
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.notifications);
+              },
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: _onNavTap,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: theme.colorScheme.surface,
+          selectedItemColor: theme.colorScheme.primary,
+          unselectedItemColor: theme.colorScheme.onSurface.withOpacity(0.6),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book_outlined),
+              label: 'Lessons',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.insights_outlined),
+              label: 'Progress',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profile',
+            ),
+          ],
+        ),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          children: [
+            // Greeting
+            Text('Welcome back, Sochman 👋', style: theme.textTheme.titleLarge),
+            const SizedBox(height: 4),
+            Text(
+              'Let’s keep your English practice going.',
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 24),
 
-//             // Optional quick actions row (practice, quiz)
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: ElevatedButton.icon(
-//                     style: ElevatedButton.styleFrom(
-//                       backgroundColor: const Color(0xFF1976D2),
-//                       padding: const EdgeInsets.symmetric(vertical: 14),
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(12),
-//                       ),
-//                     ),
-//                     onPressed: () {
-//                       Navigator.pushNamed(context, AppRoutes.lessons);
-//                     },
-//                     icon: const Icon(Lucide.play_circle),
-//                     label: const Text('Continue Learning'),
-//                   ),
-//                 ),
-//                 const SizedBox(width: 12),
-//                 Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12),
-//                   decoration: BoxDecoration(
-//                     color: Colors.white,
-//                     borderRadius: BorderRadius.circular(12),
-//                     boxShadow: [
-//                       BoxShadow(
-//                         color: Colors.black12.withOpacity(0.02),
-//                         blurRadius: 8,
-//                         offset: const Offset(0, 6),
-//                       ),
-//                     ],
-//                   ),
-//                   child: IconButton(
-//                     onPressed: () {
-//                       Navigator.pushNamed(context, AppRoutes.analytics);
-//                     },
-//                     icon: const Icon(Lucide.activity, color: Color(0xFF1976D2)),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+            // Continue learning card
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: colorScheme.primary.withOpacity(0.08),
+                      child: Icon(
+                        Icons.play_circle_fill,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Continue learning',
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            _lastLessonTitle,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.textTheme.bodyMedium?.color
+                                  ?.withOpacity(0.8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: _onResumeLesson,
+                      child: const Text('Resume'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Recommendation chips
+            Text('Recommended focus', style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  _RecommendationChip(
+                    label: 'Vocabulary',
+                    icon: Icons.text_fields,
+                  ),
+                  _RecommendationChip(label: 'Grammar', icon: Icons.rule),
+                  _RecommendationChip(label: 'Listening', icon: Icons.hearing),
+                  _RecommendationChip(label: 'Speaking', icon: Icons.mic_none),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Streak + daily goal progress
+            Row(
+              children: [
+                Expanded(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: colorScheme.secondary.withOpacity(
+                              0.08,
+                            ),
+                            child: Icon(
+                              Icons.local_fire_department_outlined,
+                              color: colorScheme.secondary,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Streak', style: theme.textTheme.bodyMedium),
+                              const SizedBox(height: 2),
+                              Text(
+                                '$_streakDays days',
+                                style: theme.textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 46,
+                            width: 46,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                CircularProgressIndicator(
+                                  value: _todayGoalProgress,
+                                  strokeWidth: 5,
+                                ),
+                                Text(
+                                  '${(_todayGoalProgress * 100).round()}%',
+                                  style: theme.textTheme.bodySmall,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Today’s goal',
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Almost there!',
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: theme.textTheme.bodySmall?.color
+                                        ?.withOpacity(0.8),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 32),
+
+            // Start session CTA
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _onStartSession,
+                child: const Text('Start 5-min session'),
+              ),
+            ),
+
+            const SizedBox(height: 8),
+            Text(
+              'We’ll pick a short set of exercises based on your current level.',
+              style: theme.textTheme.bodySmall,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RecommendationChip extends StatelessWidget {
+  final String label;
+  final IconData icon;
+
+  const _RecommendationChip({required this.label, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: FilterChip(
+        label: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 16, color: colorScheme.primary),
+            const SizedBox(width: 4),
+            Text(label),
+          ],
+        ),
+        selected: false,
+        onSelected: (_) {
+          // TODO: filter recommendations or navigate to relevant lessons
+        },
+      ),
+    );
+  }
+}
